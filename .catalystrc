@@ -1,0 +1,30 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "12115000000007290",
+      "name": "Backend-Atlas",
+      "domain": {
+        "id": "50024021027",
+        "name": "backend-atlas-60035439091.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60035439091",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}

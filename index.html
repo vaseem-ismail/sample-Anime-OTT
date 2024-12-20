@@ -4,6 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime OTT Signup/Login</title>
+    <style>
+    /* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Heading */
+h1 {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Additional Styling */
+form input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+form button:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(72, 201, 176, 0.4);
+}
+</style>
 </head>
 <body>
     <h1>Signup</h1>
@@ -32,59 +110,59 @@
     </form>
 
     <script>
-        const baseUrl = "https://appsail-50024009461.development.catalystappsail.in";
-
-        document.getElementById("signupForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-
+        const baseUrl = "https://backend-50024021027.development.catalystappsail.in";
+    
+        // Register User
+        document.getElementById("registerForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
             const username = document.getElementById("username").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-
+    
             try {
                 const response = await fetch(`${baseUrl}/register`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({ username, email, password }),
                 });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    alert(result.message);
-                } else {
-                    const error = await response.json();
-                    alert(error.message);
-                }
+                const result = await response.json();
+                alert(result.message);
             } catch (error) {
                 console.error("Error:", error);
+                alert("An error occurred. Please try again.");
             }
         });
-
-        document.getElementById("loginForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-
+    
+        // Login User
+        document.getElementById("loginForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
             const email = document.getElementById("loginEmail").value;
             const password = document.getElementById("loginPassword").value;
-
+    
             try {
                 const response = await fetch(`${baseUrl}/login`, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({ email, password }),
                 });
-
+                const result = await response.json();
                 if (response.ok) {
-                    const result = await response.json();
-                    alert(result.message);
-                    console.log("Token:", result.token);
+                    alert(`Login successful! Token: ${result.token}`);
                 } else {
-                    const error = await response.json();
-                    alert(error.message);
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error("Error:", error);
+                alert("An error occurred. Please try again.");
             }
         });
     </script>
+    
+        <!-- https://backend-50024021027.development.catalystappsail.in -->
+
 </body>
 </html>
