@@ -1,4 +1,3 @@
-// scripts.js
 const BASE_URL = "https://backend-50024021027.development.catalystappsail.in";
 
 async function registerUser() {
