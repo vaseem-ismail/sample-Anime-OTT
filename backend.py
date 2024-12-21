@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+import json
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_cors import CORS
+from bson import ObjectId
 import os
 from dotenv import load_dotenv
 
@@ -13,16 +15,28 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
 # Allow only specific origins
-CORS(app, resources={r"/*": {"origins": ["https://vaseem-ismail.github.io", "http://localhost:5501"]}})
+CORS(app, resources={r"/*": {"origins": ["https://vaseem-ismail.github.io", "http://localhost:5500"]}})
 
 # Configurations
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
-app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")  # Ensure MONGO_URI is set correctly in .env
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")  # Ensure JWT_SECRET_KEY is set in .env
 
 mongo = PyMongo(app)
 jwt = JWTManager(app)
 
-users_collection = mongo.db.users
+# Connect to the specific database and collection
+anime_db = mongo.cx["AnimeDB"]  # Explicitly use AnimeDB
+users_collection = anime_db["users"]
+
+# Utility function for JSON serialization of ObjectId
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return super().default(o)
+
+
+app.json_encoder = JSONEncoder
 
 # Registration Endpoint
 @app.route("/register", methods=["POST", "OPTIONS"])
@@ -82,4 +96,4 @@ def login():
 
 # Run App
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

@@ -1,5 +1,5 @@
 {
-	"command": "echo Please specify the start-up command in the app-config.json file under the key command",
+	"command": "python backend.py",
 	"build_path": "C:\\VASEEM_FSSA\\sample-Anime-OTT\\backend.py",
 	"stack": "python_3_9",
 	"env_variables": {},
