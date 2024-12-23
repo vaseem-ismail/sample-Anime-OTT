@@ -1,32 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeDB - Login & Registration</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Anime OTT - Login & Register</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+    .container h1 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+    .container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #5c67f2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .container button:hover {
+      background-color: #4b54d0;
+    }
+    .message {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container" id="register-form">
-            <h2>Register</h2>
-            <input type="text" id="register-username" placeholder="Username" />
-            <input type="email" id="register-email" placeholder="Email" />
-            <input type="password" id="register-password" placeholder="Password" />
-            <button onclick="registerUser()">Register</button>
-            <p id="register-message"></p>
-        </div>
+  <div class="container">
+    <h1>Login</h1>
+    <input type="text" id="login-username" placeholder="Username">
+    <input type="password" id="login-password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div id="login-message" class="message"></div>
+  </div>
+  <br>
+  <div class="container">
+    <h1>Register</h1>
+    <input type="text" id="register-username" placeholder="Username">
+    <input type="password" id="register-password" placeholder="Password">
+    <button onclick="register()">Register</button>
+    <div id="register-message" class="message"></div>
+  </div>
 
-        <div class="form-container" id="login-form">
-            <h2>Login</h2>
-            <input type="email" id="login-email" placeholder="Email" />
-            <input type="password" id="login-password" placeholder="Password" />
-            <button onclick="loginUser()">Login</button>
-            <p id="login-message"></p>
-        </div>
-        <a href="./input.html"></a>
-    </div>
+  <script>
+    const API_URL = "https://sample-anime-ott.onrender.com";
 
-    <script src="./index.js"></script>
+    async function login() {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      const message = document.getElementById('login-message');
+
+      try {
+        const response = await fetch(`${API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          message.style.color = 'green';
+          message.textContent = `Success: ${data.message}`;
+        } else {
+          message.style.color = 'red';
+          message.textContent = `Error: ${data.error || 'Failed to login'}`;
+        }
+      } catch (error) {
+        message.style.color = 'red';
+        message.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    async function register() {
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      const message = document.getElementById('register-message');
+
+      try {
+        const response = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          message.style.color = 'green';
+          message.textContent = `Success: ${data.message}`;
+        } else {
+          message.style.color = 'red';
+          message.textContent = `Error: ${data.error || 'Failed to register'}`;
+        }
+      } catch (error) {
+        message.style.color = 'red';
+        message.textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
 </body>
 </html>
