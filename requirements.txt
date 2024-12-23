@@ -3,3 +3,4 @@ flask-bcrypt
 flask-jwt-extended
 pymongo
 gunicorn
+Flask-CORS

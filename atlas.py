@@ -1,43 +1,14 @@
-# from flask import Flask, request, jsonify
-# from pymongo import MongoClient
 
-# app = Flask(__name__)
-
-# # Replace <username>, <password>, and <cluster-url> with your MongoDB Atlas credentials
-# MONGO_URI = "mongodb+srv://mohamedvaseem:mohamedvaseem@anime-galaxy.7lnts.mongodb.net/AnimeDB?retryWrites=true&w=majority"
-# client = MongoClient(MONGO_URI)
-
-# # Choose your database and collection
-# db = client["testing"]  # Replace "my_database" with your database name
-# collection = db["test1"]  # Replace "my_collection" with your collection name
-
-# @app.route("/add", methods=["POST"])
-# def add_value():
-#     try:
-#         # Get JSON data from the request
-#         data = request.json
-
-#         # Print or store data (debugging/logging)
-#         print(f"Received data: {data}")
-
-#         # Insert data into MongoDB (optional)
-#         result = collection.insert_one(data)
-
-#         return jsonify({"message": "Data added successfully", "id": str(result.inserted_id)}), 201
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-
-
-# if __name__ == "__main__":
-#     app.run(debug=True,port=5001)
     
 from flask import Flask, request, jsonify
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token
 from pymongo import MongoClient
+from flask_cors import CORS
 
-# App setup
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes and origins
+
 bcrypt = Bcrypt(app)
 app.config['JWT_SECRET_KEY'] = '460680e7fe09d19e4063e23c51d3c53757920b054007273cd083703623c1cfea'  # Replace with your actual secret key
 jwt = JWTManager(app)
