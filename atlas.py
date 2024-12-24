@@ -14,7 +14,7 @@ app.config['JWT_SECRET_KEY'] = '460680e7fe09d19e4063e23c51d3c53757920b054007273c
 jwt = JWTManager(app)
 
 # MongoDB setup
-MONGO_URI = "mongodb+srv://vaseemdrive01:mohamedvaseem@cprweb.6sp6c.mongodb.net/"  # Replace with your MongoDB Atlas connection string
+MONGO_URI = "mongodb+srv://mohamedvaseem:mohamedvaseem@anime-galaxy.7lnts.mongodb.net/"  # Replace with your MongoDB Atlas connection string
 mongo_client = MongoClient(MONGO_URI)
 db = mongo_client['CPR']
 users_collection = db['users']
