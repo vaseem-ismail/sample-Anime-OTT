@@ -91,7 +91,7 @@
         if (response.ok) {
           message.style.color = 'green';
           message.textContent = `Success: ${data.message}`;
-          window.location.href = '/home.html';
+          window.location.href = 'home.html';
         } else {
           message.style.color = 'red';
           message.textContent = `Error: ${data.error || 'Failed to login'}`;
